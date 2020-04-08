@@ -1,4 +1,4 @@
-# My-first-simple-game
+# Start server:
 
 For local server i am using Parcel.js. Just type this to the console:
 
