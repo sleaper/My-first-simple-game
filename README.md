@@ -24,4 +24,5 @@ levels.js = function that creates levels.
 
 
 # My problem:
-If you will watch for a few seconds a ball, you will see that it is little bit buggy. The ball sometimes jump to the brick.
+If you will watch for a few seconds a ball, you will see that it is little bit buggy. The ball sometimes jump to the brick.   
+I use the collision detection from this site http://www.jeffreythompson.org/collision-detection/circle-rect.php
