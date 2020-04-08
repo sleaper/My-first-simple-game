@@ -17,6 +17,7 @@ export default class Brick {
   }
 
   draw(ctx) {
+    //drawing the brick
     ctx.drawImage(
       this.image,
       this.position.x,
@@ -24,15 +25,10 @@ export default class Brick {
       this.width,
       this.height
     );
-
-    ctx.beginPath();
-    ctx.moveTo(this.position.x, this.position.y + this.height);
-    ctx.lineTo(this.position.x + this.width, this.position.y + this.height);
-    ctx.fillStyle = "#FF0000";
-    ctx.stroke();
   }
 
   update(deltaTime) {
+    //checking the detection
     if (detectCollision02(this.game.ball, this)) {
       this.game.ball.speed.y = -this.game.ball.speed.y;
 

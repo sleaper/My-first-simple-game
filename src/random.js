@@ -1,3 +1,5 @@
+// just some simple functions for random positions
+
 export function randomPos(min, max) {
   return Math.random() * (max - min) + min;
 }

@@ -51,6 +51,7 @@ export default class Game {
     // creating hearts
     this.object = showLive(this);
 
+    //gameover
     //if (this.lives === 0) this.gamestate = GAMESTATE.GAMEOVER;
 
     if (
@@ -60,6 +61,7 @@ export default class Game {
     )
       return;
 
+    //checking for the new level
     /*if (this.bricks.length === 0) {
       this.gamestate = GAMESTATE.NEWLEVEL;
       this.currentLevel++;
@@ -71,9 +73,10 @@ export default class Game {
       object.update(deltaTime)
     );
 
+    //removing bricks after touch
     //this.bricks = this.bricks.filter((brick) => !brick.markedForDeletion);
 
-    //resize
+    //resize in window
     /*window.addEventListener("resize", () => {
       this.gameWidth = window.innerWidth;
       this.gameHeight = window.innerHeight; 
@@ -131,6 +134,7 @@ export default class Game {
     }
   }
 
+  // PAUSE
   togglePause() {
     if (this.gamestate === GAMESTATE.PAUSED) {
       this.gamestate = GAMESTATE.RUNNING;

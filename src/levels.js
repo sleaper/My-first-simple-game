@@ -3,6 +3,7 @@ import Brick from "/src/brick";
 export function buildLevel(game, level) {
   let bricks = [];
 
+  //creating bricks
   level.forEach((row, rowIndex) => {
     row.forEach((brick, brickIndex) => {
       if (brick === 1) {
@@ -19,6 +20,8 @@ export function buildLevel(game, level) {
   return bricks;
 }
 
+//levels
+//first level is just for testing the collision
 export const level1 = [
   [0, 0, 0, 0, 0, 0, 0, , 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -280,6 +280,7 @@ exports.detectCollision = detectCollision;
 exports.detectCollision02 = detectCollision02;
 exports.yDist = exports.xDist = exports.testY = exports.testX = void 0;
 
+//this was the first try of simple detection
 function detectCollision(ball, gameObject) {
   var bottomOfBall = ball.position.y + ball.size;
   var topOfBall = ball.position.y - ball.size;
@@ -293,7 +294,8 @@ function detectCollision(ball, gameObject) {
   } else {
     return false;
   }
-}
+} // My main collision detection function, that is using Pythagorean theorem for the distance
+
 
 var testX;
 exports.testX = testX;
@@ -319,7 +321,8 @@ function detectCollision02(ball, gameObject) {
       exports.testY = testY = gameObject.position.y + gameObject.height;
     }
   exports.xDist = xDist = ball.position.x - testX;
-  exports.yDist = yDist = ball.position.y - testY;
+  exports.yDist = yDist = ball.position.y - testY; //Pythagorean theorem
+
   var distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
   if (distance <= ball.size) {
@@ -337,6 +340,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.randomPos = randomPos;
 exports.random = random;
 
+// just some simple functions for random positions
 function randomPos(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -391,10 +395,12 @@ var Ball = /*#__PURE__*/function () {
   }, {
     key: "draw",
     value: function draw(ctx) {
+      //drawing circle
       ctx.beginPath();
       ctx.strokeStyle = "#000000";
       ctx.arc(this.position.x, this.position.y, this.size, 0, 2 * Math.PI);
-      ctx.stroke();
+      ctx.stroke(); //frawing the line between the circle and object (you can see the closest edge)
+
       ctx.beginPath();
       ctx.strokeStyle = "#000000";
       ctx.moveTo(this.position.x, this.position.y);
@@ -404,7 +410,6 @@ var Ball = /*#__PURE__*/function () {
   }, {
     key: "update",
     value: function update(deltaTime) {
-      console.log(_colissionDetection2.xDist, _colissionDetection2.yDist);
       this.position.x += this.speed.x;
       this.position.y += this.speed.y; // wall on left and right
 
@@ -470,16 +475,13 @@ var Brick = /*#__PURE__*/function () {
   _createClass(Brick, [{
     key: "draw",
     value: function draw(ctx) {
+      //drawing the brick
       ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
-      ctx.beginPath();
-      ctx.moveTo(this.position.x, this.position.y + this.height);
-      ctx.lineTo(this.position.x + this.width, this.position.y + this.height);
-      ctx.fillStyle = "#FF0000";
-      ctx.stroke();
     }
   }, {
     key: "update",
     value: function update(deltaTime) {
+      //checking the detection
       if ((0, _colissionDetection2.detectCollision02)(this.game.ball, this)) {
         this.game.ball.speed.y = -this.game.ball.speed.y;
         this.markedForDeletion = true;
@@ -505,7 +507,8 @@ var _brick = _interopRequireDefault(require("/src/brick"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function buildLevel(game, level) {
-  var bricks = [];
+  var bricks = []; //creating bricks
+
   level.forEach(function (row, rowIndex) {
     row.forEach(function (brick, brickIndex) {
       if (brick === 1) {
@@ -519,7 +522,9 @@ function buildLevel(game, level) {
     });
   });
   return bricks;
-}
+} //levels
+//first level is just for testing the collision
+
 
 var level1 = [[0, 0, 0, 0, 0, 0, 0,, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0,, 1, 0, 0, 0, 0]];
 exports.level1 = level1;
@@ -663,9 +668,11 @@ var Game = /*#__PURE__*/function () {
     key: "update",
     value: function update(deltaTime) {
       // creating hearts
-      this.object = (0, _showLive.showLive)(this); //if (this.lives === 0) this.gamestate = GAMESTATE.GAMEOVER;
+      this.object = (0, _showLive.showLive)(this); //gameover
+      //if (this.lives === 0) this.gamestate = GAMESTATE.GAMEOVER;
 
-      if (this.gamestate === GAMESTATE.PAUSED || this.gamestate === GAMESTATE.MENU || this.gamestate === GAMESTATE.GAMEOVER) return;
+      if (this.gamestate === GAMESTATE.PAUSED || this.gamestate === GAMESTATE.MENU || this.gamestate === GAMESTATE.GAMEOVER) return; //checking for the new level
+
       /*if (this.bricks.length === 0) {
         this.gamestate = GAMESTATE.NEWLEVEL;
         this.currentLevel++;
@@ -675,8 +682,9 @@ var Game = /*#__PURE__*/function () {
 
       [].concat(_toConsumableArray(this.gameObjects), _toConsumableArray(this.bricks), _toConsumableArray(this.object)).forEach(function (object) {
         return object.update(deltaTime);
-      }); //this.bricks = this.bricks.filter((brick) => !brick.markedForDeletion);
-      //resize
+      }); //removing bricks after touch
+      //this.bricks = this.bricks.filter((brick) => !brick.markedForDeletion);
+      //resize in window
 
       /*window.addEventListener("resize", () => {
         this.gameWidth = window.innerWidth;
@@ -722,7 +730,8 @@ var Game = /*#__PURE__*/function () {
         ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
         ctx.fillText("(Press R to start again)", this.gameWidth / 2, this.gameHeight / 5);
       }
-    }
+    } // PAUSE
+
   }, {
     key: "togglePause",
     value: function togglePause() {

@@ -25,11 +25,13 @@ export default class Ball {
     this.speed = { x: 5, y: -5 };
   }
   draw(ctx) {
+    //drawing circle
     ctx.beginPath();
     ctx.strokeStyle = "#000000";
     ctx.arc(this.position.x, this.position.y, this.size, 0, 2 * Math.PI);
     ctx.stroke();
 
+    //frawing the line between the circle and object (you can see the closest edge)
     ctx.beginPath();
     ctx.strokeStyle = "#000000";
     ctx.moveTo(this.position.x, this.position.y);
@@ -38,7 +40,6 @@ export default class Ball {
   }
 
   update(deltaTime) {
-    console.log(xDist, yDist);
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 

@@ -1,3 +1,4 @@
+//this was the first try of simple detection
 export function detectCollision(ball, gameObject) {
   let bottomOfBall = ball.position.y + ball.size;
   let topOfBall = ball.position.y - ball.size;
@@ -18,6 +19,8 @@ export function detectCollision(ball, gameObject) {
     return false;
   }
 }
+
+// My main collision detection function, that is using Pythagorean theorem for the distance
 
 export let testX;
 export let testY;
@@ -46,6 +49,7 @@ export function detectCollision02(ball, gameObject) {
   xDist = ball.position.x - testX;
   yDist = ball.position.y - testY;
 
+  //Pythagorean theorem
   let distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
   if (distance <= ball.size) {
