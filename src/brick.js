@@ -1,6 +1,6 @@
 import { detectCollision } from "/src/colissionDetection.js";
 import { random } from "/src/random.js";
-import { detectCollision02 } from "./colissionDetection";
+import { detectCollision02, detectCollision03 } from "./colissionDetection";
 
 export default class Brick {
   constructor(game, position) {

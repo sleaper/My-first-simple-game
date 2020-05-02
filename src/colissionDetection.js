@@ -52,9 +52,41 @@ export function detectCollision02(ball, gameObject) {
   //Pythagorean theorem
   let distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
-  if (distance <= ball.size) {
+  const isColiding = distance <= ball.size;
+  console.log(isColiding);
+  if (isColiding) {
     return true;
   } else {
     return false;
+  }
+}
+
+export function detectCollision03(ball, gameObject) {
+  // limits value to the range min..max
+  function clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val));
+  }
+
+  // Find the closest point to the circle within the rectangle
+  // Assumes axis alignment! ie rect must not be rotated
+  let closestX = clamp(
+    ball.position.x,
+    gameObject.position.x,
+    gameObject.position.x + gameObject.width
+  );
+  let closestY = clamp(
+    ball.position.y,
+    gameObject.position.y,
+    gameObject.position.y + gameObject.height
+  );
+
+  // Calculate the distance between the ball.position's center and this closest point
+  let distanceX = ball.position.x - closestX;
+  let distanceY = ball.position.y - closestY;
+
+  // If the distance is less than the ball.position's radius, an intersection occurs
+  let distanceSquared = distanceX * distanceX + distanceY * distanceY;
+  if (distanceSquared < ball.position.Radius * ball.position.Radius) {
+    console.log("hit");
   }
 }

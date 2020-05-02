@@ -2,10 +2,11 @@ import { detectCollision } from "/src/colissionDetection.js";
 import { randomPos } from "/src/random.js";
 import {
   detectCollision02,
+  detectCollision03,
   testX,
   testY,
   xDist,
-  yDist,
+  yDist
 } from "./colissionDetection";
 
 export default class Ball {

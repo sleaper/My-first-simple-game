@@ -278,6 +278,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.detectCollision = detectCollision;
 exports.detectCollision02 = detectCollision02;
+exports.detectCollision03 = detectCollision03;
 exports.yDist = exports.xDist = exports.testY = exports.testX = void 0;
 
 //this was the first try of simple detection
@@ -324,11 +325,34 @@ function detectCollision02(ball, gameObject) {
   exports.yDist = yDist = ball.position.y - testY; //Pythagorean theorem
 
   var distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+  var isColiding = distance <= ball.size;
+  console.log(isColiding);
 
-  if (distance <= ball.size) {
+  if (isColiding) {
     return true;
   } else {
     return false;
+  }
+}
+
+function detectCollision03(ball, gameObject) {
+  // limits value to the range min..max
+  function clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val));
+  } // Find the closest point to the circle within the rectangle
+  // Assumes axis alignment! ie rect must not be rotated
+
+
+  var closestX = clamp(ball.position.x, gameObject.position.x, gameObject.position.x + gameObject.width);
+  var closestY = clamp(ball.position.y, gameObject.position.y, gameObject.position.y + gameObject.height); // Calculate the distance between the ball.position's center and this closest point
+
+  var distanceX = ball.position.x - closestX;
+  var distanceY = ball.position.y - closestY; // If the distance is less than the ball.position's radius, an intersection occurs
+
+  var distanceSquared = distanceX * distanceX + distanceY * distanceY;
+
+  if (distanceSquared < ball.position.Radius * ball.position.Radius) {
+    console.log("hit");
   }
 }
 },{}],"src/random.js":[function(require,module,exports) {
@@ -614,13 +638,17 @@ var _showLive = require("/src/showLive.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -778,7 +806,7 @@ function gameLoop(timestamp) {
 }
 
 requestAnimationFrame(gameLoop);
-},{"/src/game.js":"src/game.js"}],"C:/Users/Petr/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"/src/game.js":"src/game.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -806,7 +834,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59191" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -982,5 +1010,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/Petr/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map
